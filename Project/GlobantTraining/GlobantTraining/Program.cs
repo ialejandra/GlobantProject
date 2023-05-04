@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using GlobantTraining.Models.DAL;
-
+using GlobantTraining.Models.Abstract;
+using GlobantTraining.DAL;
+using GlobantTraining.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("GlobantTrainingContext"))
 );
 
+builder.Services.AddScoped <IConsumableBusiness, ConsumableBusiness>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

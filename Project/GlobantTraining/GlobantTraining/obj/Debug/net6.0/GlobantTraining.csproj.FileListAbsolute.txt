@@ -269,8 +269,17 @@ C:\Users\ingrid.loaiza\source\repos\GlobantTraining\GlobantTraining\bin\Debug\ne
 C:\Users\ingrid.loaiza\source\repos\GlobantTraining\GlobantTraining\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\ingrid.loaiza\source\repos\GlobantTraining\GlobantTraining\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\ingrid.loaiza\source\repos\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.csproj.CopyComplete
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.csproj.AssemblyReference.cache
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.AssemblyInfoInputs.cache
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.AssemblyInfo.cs
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.csproj.CoreCompileInputs.cache
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.RazorAssemblyInfo.cache
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.RazorAssemblyInfo.cs
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\appsettings.json
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\libman.json
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\GlobantTraining.staticwebassets.runtime.json
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\GlobantTraining.exe
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\GlobantTraining.deps.json
@@ -516,14 +525,6 @@ C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTrai
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.csproj.AssemblyReference.cache
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.AssemblyInfoInputs.cache
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.AssemblyInfo.cs
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.csproj.CoreCompileInputs.cache
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.RazorAssemblyInfo.cache
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.RazorAssemblyInfo.cs
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\staticwebassets\msbuild.GlobantTraining.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\staticwebassets\msbuild.build.GlobantTraining.props
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.GlobantTraining.props
@@ -540,3 +541,4 @@ C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTrai
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.pdb
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\GlobantTraining.genruntimeconfig.cache
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\obj\Debug\net6.0\ref\GlobantTraining.dll
+C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining\bin\Debug\net6.0\FluentAssertions.dll

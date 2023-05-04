@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GlobantTraining.DAL.Entities.PurchaseDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Consumable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityConsumable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceUnit)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purchase.PurchaseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Consumable.ConsumableId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityConsumable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceUnit)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PurchaseDetailId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PurchaseDetailId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PurchaseDetailId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<GlobantTraining.Models.Dtos.Consumable.ConsumableDto>
+
+
+@{
+    ViewData["Title"] = "Insumos";
+}
+
+<h1>@ViewBag.Titulo</h1>
+
+
+
+<p>
+    <a asp-action="Create">Crear</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ConsumableId">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.ConsumableId">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

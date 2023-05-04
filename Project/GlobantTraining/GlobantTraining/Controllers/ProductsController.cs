@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
-using GlobantTraining.Models.DAL;
-using GlobantTraining.Models.Entities;
+using GlobantTraining.DAL.Entities;
+using GlobantTraining.DAL;
 
 namespace GlobantTraining.Controllers
 {
@@ -20,15 +19,15 @@ namespace GlobantTraining.Controllers
             _context = context;
         }
 
-        // GET: Products
+
         public async Task<IActionResult> Index()
         {
-              return _context.Products != null ? 
-                          View(await _context.Products.ToListAsync()) :
-                          Problem("Entity set 'Db_TrainingGlobant.Product'  is null.");
+            ViewBag.Titulo = "Producto";
+            var appDbContext = _context.Products.Include(p => p.Consumable).Include(p => p.TypeProduct);
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Products/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Products == null)
@@ -37,7 +36,9 @@ namespace GlobantTraining.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.Consumable)
+                .Include(p => p.TypeProduct)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -46,25 +47,29 @@ namespace GlobantTraining.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
+
         public IActionResult Create()
         {
+            ViewBag.Titulo = "Crear Producto";
+            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId");
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId");
             return View();
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Color,Characteristic,Price")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.Titulo = "Crear Producto";
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId", product.ConsumableId);
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId", product.TypeProductId);
             return View(product);
         }
 
@@ -73,6 +78,7 @@ namespace GlobantTraining.Controllers
         {
             if (id == null || _context.Products == null)
             {
+                ViewBag.Titulo = "Editar Producto";
                 return NotFound();
             }
 
@@ -81,18 +87,19 @@ namespace GlobantTraining.Controllers
             {
                 return NotFound();
             }
+            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId", product.ConsumableId);
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId", product.TypeProductId);
             return View(product);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Color,Characteristic,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
-            if (id != product.Id)
+            if (id != product.ProductId)
             {
+                ViewBag.Titulo = "Editar Producto";
                 return NotFound();
             }
 
@@ -105,7 +112,7 @@ namespace GlobantTraining.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -116,6 +123,8 @@ namespace GlobantTraining.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId", product.ConsumableId);
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId", product.TypeProductId);
             return View(product);
         }
 
@@ -128,7 +137,9 @@ namespace GlobantTraining.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.Consumable)
+                .Include(p => p.TypeProduct)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -137,14 +148,14 @@ namespace GlobantTraining.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Products == null)
             {
-                return Problem("Entity set 'GlobantTrainingContext.Product'  is null.");
+                return Problem("Entity set 'AppDbContext.Products'  is null.");
             }
             var product = await _context.Products.FindAsync(id);
             if (product != null)
@@ -158,7 +169,7 @@ namespace GlobantTraining.Controllers
 
         private bool ProductExists(int id)
         {
-          return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
     }
 }
