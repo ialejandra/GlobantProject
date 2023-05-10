@@ -1,4 +1,4 @@
-﻿@model GlobantTraining.Models.Dtos.Consumable.ConsumableDto
+﻿@model GlobantTraining.Models.Dtos.ConsumableDto
 
 @{
     ViewData["Title"] = "Crear Insumo";
@@ -26,9 +26,11 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-outline-success" />
             </div>
+            
         </form>
     </div>
 </div>

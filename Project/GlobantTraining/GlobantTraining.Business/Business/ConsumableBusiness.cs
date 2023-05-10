@@ -2,7 +2,7 @@
 using GlobantTraining.Models.Abstract;
 using GlobantTraining.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using GlobantTraining.Models.Dtos.Consumable;
+using GlobantTraining.Models.Dtos;
 
 namespace GlobantTraining.Business
 {
@@ -46,23 +46,25 @@ namespace GlobantTraining.Business
                     Title= c.Title,
                     Color= c.Color,
                     Description= c.Description,
+                    Status = (GetEstado(c.Status)== "Activo")
                 };
                 ListConsumableDto.Add(consumableDto);
             });
             return ListConsumableDto;   
         }
-        // private string Getestado(bool estado)
-        //{
-        //    if (estado)
-        //        return "Activo";
-        //    else
-        //        return "Inactivo";
-        //}
 
+        private string GetEstado(bool status)
+        {
+            if (status)
+                return "Activo";
+            else
+                return "Inactivo";
+        }
         public void Create(ConsumableDto consumableDto)
         {
             if (consumableDto == null)
                 throw new ArgumentNullException(nameof(Consumable));
+            consumableDto.Status = true;
 
             Consumable consumable = new()
             {
@@ -70,8 +72,10 @@ namespace GlobantTraining.Business
                 Title = consumableDto.Title,
                 Color = consumableDto.Color,
                 Description = consumableDto.Description,
+                Status = consumableDto.Status,
             };
             _context.Add(consumable);
+            
         }
 
         public async Task<bool> SaveChanges()
@@ -89,8 +93,10 @@ namespace GlobantTraining.Business
                     Title = consumableDto.Title,
                     Color = consumableDto.Color,
                     Description = consumableDto.Description,
+                    Status= consumableDto.Status,
                 };
                 _context.Update(consumable);
+                
             }
   
         }
@@ -101,17 +107,6 @@ namespace GlobantTraining.Business
             return _context.Consumables.Any(e => e.ConsumableId == id);
         }
 
-
-        //public async Task Delete(int consumableId)
-        //{
-        //    var consumableToDelete = await _context.Consumables.FindAsync(consumableId);
-
-        //    if (consumableToDelete != null)
-        //    {
-        //        _context.Consumables.Remove(consumableToDelete);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //}
 
     }
 }

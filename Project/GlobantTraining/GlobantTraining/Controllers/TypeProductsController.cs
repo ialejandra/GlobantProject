@@ -19,7 +19,7 @@ namespace GlobantTraining.Controllers
             _context = context;
         }
 
-        // GET: TypeProducts
+
         public async Task<IActionResult> Index()
         {
               return _context.TypeProducts != null ? 
@@ -27,33 +27,13 @@ namespace GlobantTraining.Controllers
                           Problem("No se encuentra los tipos de productos");
         }
 
-        // GET: TypeProducts/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.TypeProducts == null)
-            {
-                return NotFound();
-            }
 
-            var typeProduct = await _context.TypeProducts
-                .FirstOrDefaultAsync(m => m.TypeProductId == id);
-            if (typeProduct == null)
-            {
-                return NotFound();
-            }
-
-            return View(typeProduct);
-        }
-
-        // GET: TypeProducts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: TypeProducts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TypeProductId,Title")] TypeProduct typeProduct)
@@ -67,7 +47,6 @@ namespace GlobantTraining.Controllers
             return View(typeProduct);
         }
 
-        // GET: TypeProducts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.TypeProducts == null)
@@ -83,9 +62,7 @@ namespace GlobantTraining.Controllers
             return View(typeProduct);
         }
 
-        // POST: TypeProducts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TypeProductId,Title")] TypeProduct typeProduct)
@@ -118,7 +95,7 @@ namespace GlobantTraining.Controllers
             return View(typeProduct);
         }
 
-        // GET: TypeProducts/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.TypeProducts == null)

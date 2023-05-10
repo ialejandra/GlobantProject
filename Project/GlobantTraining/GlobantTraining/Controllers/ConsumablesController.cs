@@ -2,7 +2,7 @@
 using GlobantTraining.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GlobantTraining.Models.Dtos.Consumable;
+using GlobantTraining.Models.Dtos;
 
 namespace GlobantTraining.Controllers
 {
@@ -49,32 +49,6 @@ namespace GlobantTraining.Controllers
             }
             return View(consumableDto);
         }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Detalle(int? id)
-        {
-            if (id !=null)
-            {
-                try
-                {
-                    var consumable = await _consumableBusiness.GetConsumableId(id);
-
-                    if(consumable != null)
-                    {
-                        return View(consumable);
-                    }
-                    return NotFound();
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-            return NotFound();
-        }
-
 
 
         [HttpGet]
@@ -147,47 +121,6 @@ namespace GlobantTraining.Controllers
             }
             return View(consumableDto);
         }
-
-        //    public async Task<IActionResult> Delete(int? id)
-        //    {
-        //        if (id == null || _consumableBusiness.GetConsumables() == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        var consumable = await _consumableBusiness.GetConsumables().FirstOrDefaultAsync(m => m.ConsumableId == id);
-        //        if (consumable == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return View(consumable);
-        //    }
-
-
-        //    [HttpPost, ActionName("Delete")]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> DeleteConfirmed(int id)
-        //    {
-        //        if (_consumableBusiness.Consumable == null)
-        //        {
-        //            return Problem("Entity set 'AppDbContext.Consumables'  is null.");
-        //        }
-        //        var consumable = await _consumableBusiness.Consumables.FindAsync(id);
-        //        if (consumable != null)
-        //        {
-        //            _consumableBusiness.Consumables.Remove(consumable);
-        //        }
-
-        //        await _consumableBusiness.SaveChanges();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    private bool ConsumableExists(int id)
-        //    {
-        //        return (_consumableBusiness.Consumables?.Any(e => e.ConsumableId == id)).GetValueOrDefault();
-        //    }
-
     }
 
 }

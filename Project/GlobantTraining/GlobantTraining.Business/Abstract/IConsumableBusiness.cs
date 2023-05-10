@@ -1,5 +1,5 @@
 ﻿using GlobantTraining.DAL.Entities;
-using GlobantTraining.Models.Dtos.Consumable;
+using GlobantTraining.Models.Dtos;
 
 namespace GlobantTraining.Models.Abstract
 {
@@ -14,6 +14,7 @@ namespace GlobantTraining.Models.Abstract
 
         void Edit(ConsumableDto consumableDto);
         bool ConsumableExists(int id);
+       
 
         //Task Delete(int consumableId);
     }

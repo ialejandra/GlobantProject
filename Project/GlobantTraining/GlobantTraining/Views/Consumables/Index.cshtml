@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GlobantTraining.Models.Dtos.Consumable.ConsumableDto>
+﻿@model IEnumerable<GlobantTraining.Models.Dtos.ConsumableDto>
 
 
 @{
@@ -24,24 +24,31 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var consumable in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @consumable.Title
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Color)
+                @consumable.Color
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @consumable.Description
             </td>
+            <th>
+                    @consumable.ShowStatus
+                    
+                </th>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ConsumableId">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.ConsumableId">Eliminar</a>
+                <a asp-action="Edit" asp-route-id="@consumable.ConsumableId">Editar</a> 
+                
             </td>
         </tr>
 }

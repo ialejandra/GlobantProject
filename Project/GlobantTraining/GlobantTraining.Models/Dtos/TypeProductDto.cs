@@ -18,7 +18,7 @@ namespace GlobantTraining.Models.Dtos
 
 
 
-        //[Display(Name = "ESTADO")]
-        //public bool Status { get; set; }
+        [Display(Name = "ESTADO")]
+        public bool Status { get; set; }
     }
 }
