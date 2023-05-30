@@ -1,10 +1,10 @@
 ﻿using GlobantTraining.DAL;
-using GlobantTraining.Models.Abstract;
 using GlobantTraining.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using GlobantTraining.Models.Dtos;
+using GlobantTraining.Business.Abstract;
 
-namespace GlobantTraining.Business
+namespace GlobantTraining.Business.Business
 {
     public class ConsumableBusiness : IConsumableBusiness
     {
@@ -24,13 +24,13 @@ namespace GlobantTraining.Business
             if (consumable == null)
                 return null;
 
-            var consumableDto = new ConsumableDto(); 
-            consumableDto.ConsumableId = consumable.ConsumableId; 
+            var consumableDto = new ConsumableDto();
+            consumableDto.ConsumableId = consumable.ConsumableId;
             consumableDto.Title = consumable.Title;
             consumableDto.Color = consumable.Color;
             consumableDto.Description = consumable.Description;
 
-            return consumableDto; 
+            return consumableDto;
         }
 
 
@@ -38,22 +38,22 @@ namespace GlobantTraining.Business
         {
             List<ConsumableDto> ListConsumableDto = new();
             var consumables = await _context.Consumables.ToListAsync();
-            consumables.ForEach(c => 
+            consumables.ForEach(c =>
             {
                 ConsumableDto consumableDto = new()
                 {
-                    ConsumableId= c.ConsumableId,
-                    Title= c.Title,
-                    Color= c.Color,
-                    Description= c.Description,
-                    Status = (GetEstado(c.Status)== "Activo")
+                    ConsumableId = c.ConsumableId,
+                    Title = c.Title,
+                    Color = c.Color,
+                    Description = c.Description,
+                    Status = GetStatus(c.Status) == "Activo"
                 };
                 ListConsumableDto.Add(consumableDto);
             });
-            return ListConsumableDto;   
+            return ListConsumableDto;
         }
 
-        private string GetEstado(bool status)
+        private string GetStatus(bool status)
         {
             if (status)
                 return "Activo";
@@ -75,12 +75,12 @@ namespace GlobantTraining.Business
                 Status = consumableDto.Status,
             };
             _context.Add(consumable);
-            
+
         }
 
         public async Task<bool> SaveChanges()
         {
-            return await _context.SaveChangesAsync() >0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public void Edit(ConsumableDto consumableDto)
@@ -93,12 +93,12 @@ namespace GlobantTraining.Business
                     Title = consumableDto.Title,
                     Color = consumableDto.Color,
                     Description = consumableDto.Description,
-                    Status= consumableDto.Status,
+                    Status = consumableDto.Status,
                 };
                 _context.Update(consumable);
-                
+
             }
-  
+
         }
 
 

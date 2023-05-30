@@ -7,8 +7,6 @@
 
 <h1>@ViewBag.Titulo</h1>
 
-
-
 <p>
     <a asp-action="Create">Crear</a>
 </p>
@@ -42,10 +40,10 @@
             <td>
                 @consumable.Description
             </td>
-            <th>
-                    @consumable.ShowStatus
+            <td>
+                @consumable.ShowStatus
                     
-                </th>
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@consumable.ConsumableId">Editar</a> 
                 

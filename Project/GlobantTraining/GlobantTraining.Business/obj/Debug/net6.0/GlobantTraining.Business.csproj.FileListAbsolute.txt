@@ -15,5 +15,3 @@ C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTrai
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining.Business\obj\Debug\net6.0\refint\GlobantTraining.Business.dll
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining.Business\obj\Debug\net6.0\GlobantTraining.Business.pdb
 C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining.Business\obj\Debug\net6.0\ref\GlobantTraining.Business.dll
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining.Business\bin\Debug\net6.0\GlobantTraining.Business.runtimeconfig.json
-C:\Users\ingrid.loaiza\source\repos\Proyecto\Project\GlobantTraining\GlobantTraining.Business\obj\Debug\net6.0\GlobantTraining.Business.genruntimeconfig.cache

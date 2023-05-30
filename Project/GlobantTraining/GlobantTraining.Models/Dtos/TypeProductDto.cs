@@ -1,24 +1,46 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace GlobantTraining.Models.Dtos
-{
-    public class TypeProductDto
+    namespace GlobantTraining.Models.Dtos
     {
-        [Display(Name = "CÓDIGO")]
-        public int TypeProductId { get; set; }
+        public class TypeProductDto
+        {
+            [Display(Name = "CÓDIGO")]
+            public int TypeProductId { get; set; }
 
 
 
 
 
-        [Display(Name = "NOMBRE TIPO DE PRODUCTO")]
-        [Required(ErrorMessage = "El nombre del tipo de producto es requerido")]
-        public string Title { get; set; }
+            [Display(Name = "NOMBRE TIPO DE PRODUCTO")]
+            [Required(ErrorMessage = "El nombre del tipo de producto es requerido")]
+            public string Title { get; set; }
 
 
 
-        [Display(Name = "ESTADO")]
-        public bool Status { get; set; }
+            [Display(Name = "ESTADO")]
+            public bool Status { get; set; }
+
+        //public string ShowStatus
+        //{
+        //    get
+        //    {
+        //        if (Status)
+        //        { return "Activo"; }
+        //        else
+        //        { return "Inactivo"; }
+        //    }
+        //    set
+        //    {
+                
+        //    }
+            
+        //}
+
     }
 }

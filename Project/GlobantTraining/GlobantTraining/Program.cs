@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using GlobantTraining.Models.Abstract;
 using GlobantTraining.DAL;
-using GlobantTraining.Business;
+using GlobantTraining.Business.Business;
+using GlobantTraining.Business.Abstract;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("GlobantTrainingContext"))
 );
 
+builder.Services.AddAutoMapper(typeof(Mapper));
 builder.Services.AddScoped <IConsumableBusiness, ConsumableBusiness>();
+builder.Services.AddScoped<ITypeProductBusiness, TypeProductBusiness>();
+builder.Services.AddScoped<IProductBusiness, ProductBusiness>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -35,6 +40,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Products}/{action=Index}/{id?}");
+    pattern: "{controller=TypeProducts}/{action=Index}/{id?}");
 
 app.Run();

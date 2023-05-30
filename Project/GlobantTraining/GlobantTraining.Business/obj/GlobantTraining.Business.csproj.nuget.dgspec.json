@@ -35,6 +35,9 @@
             "projectReferences": {
               "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.DAL\\GlobantTraining.DAL.csproj": {
                 "projectPath": "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.DAL\\GlobantTraining.DAL.csproj"
+              },
+              "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.Models\\GlobantTraining.Models.csproj": {
+                "projectPath": "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.Models\\GlobantTraining.Models.csproj"
               }
             }
           }
@@ -48,18 +51,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[12.0.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.5, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -108,11 +99,7 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {
-              "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.Models\\GlobantTraining.Models.csproj": {
-                "projectPath": "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.Models\\GlobantTraining.Models.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -125,10 +112,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[12.0.1, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.5, )"
@@ -198,7 +181,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.DAL\\GlobantTraining.DAL.csproj": {
+                "projectPath": "C:\\Users\\ingrid.loaiza\\source\\repos\\Proyecto\\Project\\GlobantTraining\\GlobantTraining.DAL\\GlobantTraining.DAL.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -214,18 +201,6 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.5, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.5, )"
             }
           },
           "imports": [
