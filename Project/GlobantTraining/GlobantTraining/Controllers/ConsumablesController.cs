@@ -1,4 +1,4 @@
-﻿using GlobantTraining.Models.Abstract;
+﻿using GlobantTraining.Business.Abstract;
 using GlobantTraining.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

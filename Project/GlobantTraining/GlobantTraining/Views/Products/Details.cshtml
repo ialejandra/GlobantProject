@@ -1,26 +1,26 @@
-﻿@model GlobantTraining.DAL.Entities.Product
+﻿@model GlobantTraining.Models.Dtos.ProductDetailDto
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle producto";
 }
 
-<h1>Details</h1>
+<h1>@ViewBag.Titulo</h1>
 
 <div>
     <h4>Product</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeProduct)
+            @Html.DisplayNameFor(model => model.TypeProductId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeProduct.TypeProductId)
+            @Html.DisplayFor(model => model.TypeProductId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Consumable)
+            @Html.DisplayNameFor(model => model.ConsumableId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Consumable.ConsumableId)
+            @Html.DisplayFor(model => model.ConsumableId)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
@@ -55,6 +55,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.ProductId">Editar</a> |
+    <a asp-action="Index">Regresar</a>
 </div>

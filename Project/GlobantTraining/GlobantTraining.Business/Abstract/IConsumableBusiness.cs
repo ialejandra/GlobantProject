@@ -1,7 +1,7 @@
 ﻿using GlobantTraining.DAL.Entities;
 using GlobantTraining.Models.Dtos;
 
-namespace GlobantTraining.Models.Abstract
+namespace GlobantTraining.Business.Abstract
 {
     public interface IConsumableBusiness
     {

@@ -1,4 +1,4 @@
-﻿@model GlobantTraining.DAL.Entities.Product
+﻿@model GlobantTraining.Models.Dtos.ProductRegisterDto
 
 @{
     ViewData["Title"] = "Crear Producto";
@@ -13,12 +13,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TypeProductId" class="control-label"></label>
-                <select asp-for="TypeProductId" class ="form-control" asp-items="ViewBag.TypeProductId"></select>
+                <select asp-for="TypeProductId" class="form-control" asp-items="@ViewBag.TypeProducts"></select>
             </div>
+
             <div class="form-group">
-                <label asp-for="ConsumableId" class="control-label"></label>
-                <select asp-for="ConsumableId" class ="form-control" asp-items="ViewBag.ConsumableId"></select>
+                <input id="Text1" type="text" />
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="showPop">Open Modal</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog   modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div class="modal-body ">
+                                <div id="popup">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="submitModal">Submit</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -39,11 +64,7 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
-                </label>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-outline-success" />
             </div>
@@ -57,4 +78,32 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+                    $('#showPop').click(function () {
+                         var url = '@Url.Action("GetPartialView", "ProductsController")';
+                        $.ajax({
+                            url: url,
+                            type: 'post',
+                            data: { "para": $("#Text1").val()},
+                            success: function (data) {
+                                $('#popup').html(data);
+                            }
+                        });
+                    })
+
+        $('#submitModal').click(function () {
+            var url = '@Url.Action("GetData", "ProductsController")';
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        data: { "data": $("input[name='data']").val() },
+                        success: function () {
+                            $("#Text1").val("");
+                            alert("pass successfully!");
+
+                        }
+                    });
+                });
+    </script>
 }

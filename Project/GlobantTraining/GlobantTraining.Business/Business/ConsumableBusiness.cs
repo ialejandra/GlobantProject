@@ -1,10 +1,11 @@
 ﻿using GlobantTraining.DAL;
-using GlobantTraining.Models.Abstract;
+using GlobantTraining.Business.Abstract;
 using GlobantTraining.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using GlobantTraining.Models.Dtos;
 
-namespace GlobantTraining.Business
+
+namespace GlobantTraining.Business.Business
 {
     public class ConsumableBusiness : IConsumableBusiness
     {

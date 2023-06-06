@@ -1,4 +1,4 @@
-﻿@model GlobantTraining.DAL.Entities.Product
+﻿@model GlobantTraining.Models.Dtos.ProductDetailDto
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,16 +12,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeProduct)
+            @Html.DisplayNameFor(model => model.TypeProductId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeProduct.TypeProductId)
+            @Html.DisplayFor(model => model.TypeProductId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Consumable)
+            @Html.DisplayNameFor(model => model.ConsumableId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Consumable.ConsumableId)
+            @Html.DisplayFor(model => model.ConsumableId)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)

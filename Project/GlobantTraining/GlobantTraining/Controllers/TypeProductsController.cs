@@ -7,81 +7,120 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlobantTraining.DAL.Entities;
 using GlobantTraining.DAL;
+using GlobantTraining.Business.Abstract;
+using GlobantTraining.Models.Dtos;
 
 namespace GlobantTraining.Controllers
 {
     public class TypeProductsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ITypeProductBusiness _typeProductBusiness;
 
-        public TypeProductsController(AppDbContext context)
+        public TypeProductsController(ITypeProductBusiness typeProductBusiness)
         {
-            _context = context;
+            _typeProductBusiness = typeProductBusiness;
         }
 
 
         public async Task<IActionResult> Index()
         {
-              return _context.TypeProducts != null ? 
-                          View(await _context.TypeProducts.ToListAsync()) :
-                          Problem("No se encuentra los tipos de productos");
+            ViewBag.Titulo = "Tipo Producto";
+            return View(await _typeProductBusiness.GetTypeProducts());
         }
-
 
         public IActionResult Create()
         {
+            ViewBag.Titulo = "Crear Tipo Producto";
             return View();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TypeProductId,Title")] TypeProduct typeProduct)
+        public async Task<IActionResult> Create(TypeProductDto typeProductDto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(typeProduct);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    ViewBag.Titulo = "Crear Tipo Producto";
+                    _typeProductBusiness.Create(typeProductDto);
+                    var save = await _typeProductBusiness.SaveChanges();
+                    if (save)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+               
             }
-            return View(typeProduct);
+            return View(typeProductDto);
         }
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.TypeProducts == null)
+            if (id != null)
             {
-                return NotFound();
-            }
+                try
+                {
+                    var typeProduct = await _typeProductBusiness.GetTypeProductId(id.Value);
+                    if (typeProduct != null)
+                    {
+                        ViewBag.Titulo = "Editar Tipo Producto";
+                        return View(typeProduct);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception)
+                {
 
-            var typeProduct = await _context.TypeProducts.FindAsync(id);
-            if (typeProduct == null)
-            {
-                return NotFound();
+                    throw;
+                }
             }
-            return View(typeProduct);
+            return NotFound();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TypeProductId,Title")] TypeProduct typeProduct)
+        public async Task<IActionResult> Edit(int id, TypeProductDto typeProductDto)
         {
-            if (id != typeProduct.TypeProductId)
+            if (id != typeProductDto.TypeProductId)
             {
-                return NotFound();
+                try
+                {
+                    _typeProductBusiness.Edit(typeProductDto);
+                    var edit = await _typeProductBusiness.SaveChanges();
+                    if (edit) 
+                    {
+                        return RedirectToAction();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(typeProduct);
-                    await _context.SaveChangesAsync();
+                    _typeProductBusiness.Edit(typeProductDto);
+                    var edit = await _typeProductBusiness.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TypeProductExists(typeProduct.TypeProductId))
+                    if (!_typeProductBusiness.TypeProductExists(typeProductDto.TypeProductId))
                     {
                         return NotFound();
                     }
@@ -92,49 +131,9 @@ namespace GlobantTraining.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(typeProduct);
+            return View(typeProductDto);
         }
 
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.TypeProducts == null)
-            {
-                return NotFound();
-            }
-
-            var typeProduct = await _context.TypeProducts
-                .FirstOrDefaultAsync(m => m.TypeProductId == id);
-            if (typeProduct == null)
-            {
-                return NotFound();
-            }
-
-            return View(typeProduct);
-        }
-
-        // POST: TypeProducts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.TypeProducts == null)
-            {
-                return Problem("Entity set 'AppDbContext.TypeProducts'  is null.");
-            }
-            var typeProduct = await _context.TypeProducts.FindAsync(id);
-            if (typeProduct != null)
-            {
-                _context.TypeProducts.Remove(typeProduct);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool TypeProductExists(int id)
-        {
-          return (_context.TypeProducts?.Any(e => e.TypeProductId == id)).GetValueOrDefault();
-        }
+        
     }
 }

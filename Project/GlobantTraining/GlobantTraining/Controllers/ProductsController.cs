@@ -7,112 +7,150 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlobantTraining.DAL.Entities;
 using GlobantTraining.DAL;
+using GlobantTraining.Business.Abstract;
+using GlobantTraining.Business.Business;
+using GlobantTraining.Models.Dtos;
 
 namespace GlobantTraining.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IProductBusiness _productBusiness;
 
-        public ProductsController(AppDbContext context)
+        public ProductsController(IProductBusiness productBusiness)
         {
-            _context = context;
+            _productBusiness = productBusiness;
         }
-
 
         public async Task<IActionResult> Index()
         {
             ViewBag.Titulo = "Producto";
-            var appDbContext = _context.Products.Include(p => p.Consumable).Include(p => p.TypeProduct);
-            return View(await appDbContext.ToListAsync());
+            return View(await _productBusiness.GetProducts());
         }
 
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Products == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .Include(p => p.Consumable)
-                .Include(p => p.TypeProduct)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
-        }
+        //public async Task<IActionResult> Details(int? id)
+        //{
+            
+        //}
 
 
         public IActionResult Create()
         {
             ViewBag.Titulo = "Crear Producto";
-            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId");
-            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId");
+            var typeProducts = _productBusiness.GetTypes();
+            ViewBag.TypeProducts = new SelectList(typeProducts, "TypeProductId", "Title");
             return View();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(ProductRegisterDto productRegisterDto, List<TypeProduct> typeProducts)
         {
             if (ModelState.IsValid)
             {
-                ViewBag.Titulo = "Crear Producto";
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    ViewBag.Titulo = "Crear Producto";
+                    
+                    _productBusiness.Create(productRegisterDto, typeProducts);
+                    
+                    var save = await _productBusiness.SaveChanges();
+                    if (save)
+                    {
+                        
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                    throw;
+                }
             }
-            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId", product.ConsumableId);
-            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId", product.TypeProductId);
-            return View(product);
+            
+            return View(productRegisterDto);
         }
 
-        // GET: Products/Edit/5
+       
+
+        [HttpPost]
+        public IActionResult GetPartialView(string para)
+        {
+            
+            var model = _productBusiness.GetProductData(para);
+            return PartialView("_PopView", model);
+        }
+
+        [HttpPost]
+        public IActionResult GetData(string data)
+        {
+            //do anything.
+            return Ok();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id != null)
             {
-                ViewBag.Titulo = "Editar Producto";
-                return NotFound();
-            }
+                try
+                {
+                    var product = await _productBusiness.GetProductId(id.Value);
+                    if (product != null)
+                    {
+                        ViewBag.Titulo = "Editar Producto";
+                        var typeProducts = _productBusiness.GetTypes();
+                        ViewBag.TypeProducts = new SelectList(typeProducts, "TypeProductId", "Title");
+                        return View(product);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception)
+                {
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
+                    throw;
+                }
             }
-            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId", product.ConsumableId);
-            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId", product.TypeProductId);
-            return View(product);
+            return NotFound();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product)
+        public async Task<IActionResult> Edit(int id, ProductRegisterDto productRegisterDto, List<TypeProduct> typeProducts)
         {
-            if (id != product.ProductId)
             {
-                ViewBag.Titulo = "Editar Producto";
-                return NotFound();
+                try
+                {
+                    _productBusiness.Edit(productRegisterDto, typeProducts);
+                    var edit = await _productBusiness.SaveChanges();
+                    if (edit)
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    _productBusiness.Edit(productRegisterDto, typeProducts);
+                    var edit = await _productBusiness.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductId))
+                    if (!_productBusiness.ProductExists(productRegisterDto.ProductId))
                     {
                         return NotFound();
                     }
@@ -123,53 +161,27 @@ namespace GlobantTraining.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ConsumableId"] = new SelectList(_context.Consumables, "ConsumableId", "ConsumableId", product.ConsumableId);
-            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "TypeProductId", "TypeProductId", product.TypeProductId);
-            return View(product);
-        }
-
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Products == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .Include(p => p.Consumable)
-                .Include(p => p.TypeProduct)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
+            return View(productRegisterDto);
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Products == null)
-            {
-                return Problem("Entity set 'AppDbContext.Products'  is null.");
-            }
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-            }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (_context.Products == null)
+        //    {
+        //        return Problem("Entity set 'AppDbContext.Products'  is null.");
+        //    }
+        //    var product = await _context.Products.FindAsync(id);
+        //    if (product != null)
+        //    {
+        //        _context.Products.Remove(product);
+        //    }
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
-        private bool ProductExists(int id)
-        {
-          return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
-        }
     }
 }

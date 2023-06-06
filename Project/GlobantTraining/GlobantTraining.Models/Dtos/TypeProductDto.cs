@@ -20,5 +20,15 @@ namespace GlobantTraining.Models.Dtos
 
         [Display(Name = "ESTADO")]
         public bool Status { get; set; }
+        public string ShowStatus
+        {
+            get
+            {
+                if (Status)
+                { return "Activo"; }
+                else
+                { return "Inactivo"; }
+            }
+        }
     }
 }
