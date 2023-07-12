@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<GlobantTraining.Models.Dtos.TypeProductDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tipo Producto";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Titulo</h1>
 
 <p>
     <a asp-action="Create">Crear</a>
@@ -28,7 +28,15 @@
                     @typeProduct.Title
             </td>
                 <td>
-                    @typeProduct.Status
+                    @if (typeProduct.Status)
+                    {
+                        <p>Activo</p>
+                        
+                    }
+                    else
+                    {
+                        <p>Inactivo</p>
+                    }
 
                 </td>
             <td>

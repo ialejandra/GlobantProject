@@ -53,6 +53,8 @@ namespace GlobantTraining.Business.Business
             return ListConsumableDto;
         }
 
+        
+
         private string GetStatus(bool status)
         {
             if (status)
@@ -105,6 +107,29 @@ namespace GlobantTraining.Business.Business
         public bool ConsumableExists(int id)
         {
             return _context.Consumables.Any(e => e.ConsumableId == id);
+        }
+
+        public async Task<IEnumerable<ConsumableDto>> SearchConsumables(string searchTerm)
+        {
+            List<ConsumableDto> ListConsumableDto = new();
+            var consumables = await _context.Consumables
+                .Where(c => c.Title.Contains(searchTerm))
+                .ToListAsync();
+
+            consumables.ForEach(c =>
+            {
+                ConsumableDto consumableDto = new()
+                {
+                    ConsumableId = c.ConsumableId,
+                    Title = c.Title,
+                    Color = c.Color,
+                    Description = c.Description,
+                    Status = GetStatus(c.Status) == "Activo"
+                };
+                ListConsumableDto.Add(consumableDto);
+            });
+
+            return ListConsumableDto;
         }
 
 

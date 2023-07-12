@@ -1,4 +1,5 @@
-﻿using GlobantTraining.Models.Dtos;
+﻿using GlobantTraining.DAL.Entities;
+using GlobantTraining.Models.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,17 @@ namespace GlobantTraining.Business.Abstract
 
         Task<ProductDto> GetProductId(int? id);
 
-        Task<bool> Create(ProductDto ProductDto);
+        void Create(ProductDto ProductDto, List<TypeProduct> typeProducts, List<ProductDetail> productsDetail);
 
-        void Edit(ProductDto ProductDto);
+        bool ExistsProductWithTitle(string title);
+        List<TypeProduct> GetTypes();
+        List<Consumable> GetConsumable();
+
+        void Edit(ProductDto ProductDto, List<TypeProduct> typeProducts, List<Consumable> consusmables);
         bool ProductExists(int id);
+
+        Task<IEnumerable<ConsumableDto>> SearchConsumables(string searchTerm);
+
+        Task<Consumable> GetConsumableById(int? id);
     }
 }

@@ -31,31 +31,32 @@ namespace GlobantTraining.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TypeProductDto typeProductDto)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    ViewBag.Titulo = "Crear Tipo de Producto";
+                    ViewBag.Titulo = "Crear Tipo Producto";
                     _typeProductBusiness.Create(typeProductDto);
                     var save = await _typeProductBusiness.SaveChanges();
                     if (save)
                     {
                         return RedirectToAction("Index");
                     }
+
                 }
                 catch (Exception)
                 {
 
                     throw;
                 }
+
             }
             return View(typeProductDto);
         }
 
-
-        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id != null)
@@ -65,7 +66,7 @@ namespace GlobantTraining.Controllers
                     var typeProduct = await _typeProductBusiness.GetTypeProductId(id.Value);
                     if (typeProduct != null)
                     {
-                        ViewBag.Titulo = "Editar Tipo de Producto";
+                        ViewBag.Titulo = "Editar Tipo Producto";
                         return View(typeProduct);
                     }
                     else
@@ -82,6 +83,7 @@ namespace GlobantTraining.Controllers
             return NotFound();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, TypeProductDto typeProductDto)
@@ -94,11 +96,12 @@ namespace GlobantTraining.Controllers
                     var edit = await _typeProductBusiness.SaveChanges();
                     if (edit)
                     {
-                        return NotFound();
+                        return RedirectToAction();
                     }
                 }
                 catch (Exception)
                 {
+
                     throw;
                 }
             }

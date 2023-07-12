@@ -5,19 +5,26 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace GlobantTraining.Models.Dtos
 {
     public class ProductDto
     {
         public int ProductId { get; set; }
-        public int TypeProductId { get; set; }     
-        public int ConsumableId { get; set; }
+
+        [Display(Name = "TIPO PRODUCTO")]
+        public string TypeProductId { get; set; }
+
+
+        [Display(Name = "INSUMOS")]
+        public ICollection<ProductDetail> ProductDetail { get; set; }
 
 
         [Required(ErrorMessage = "El nombre del producto es requerido")]
         [Display(Name = "NOMBRE PRODUCTO")]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "Ingrese mínimo 5 caracteres y máximo 30")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Ingrese mínimo 3 caracteres y máximo 30")]
+        //[Remote(action: "VerifyName", controller: "Products")]
         public string Title { get; set; }
 
 
@@ -30,13 +37,15 @@ namespace GlobantTraining.Models.Dtos
 
         [Required(ErrorMessage = "La descripción del producto es requerido")]
         [Display(Name = "DESCRIPCIÓN")]
-        [StringLength(500, MinimumLength = 3, ErrorMessage = "Ingrese mínimo 3 caracteres y máximo 500")]
+        [StringLength(500, MinimumLength = 2, ErrorMessage = "Ingrese mínimo 2 caracteres y máximo 500")]
         public string Characteristic { get; set; }
 
 
 
         [Display(Name = "PRECIO VENTA")]
-        public decimal Price { get; set; }
+        [Required]
+        public decimal Price { get; set; } = 0;
+        
 
 
 
@@ -54,5 +63,9 @@ namespace GlobantTraining.Models.Dtos
                 { return "Inactivo"; }
             }
         }
+
+        //public List<ProductDetail> ProductDetails { get; set; }
     }
+
+    
 }

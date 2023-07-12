@@ -1,4 +1,4 @@
-﻿@model GlobantTraining.DAL.Entities.TypeProduct
+﻿@model GlobantTraining.Models.Dtos.TypeProductDto
 
 @{
     ViewData["Title"] = "Editar Tipo de Producto";
@@ -8,7 +8,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" autocomplete="off">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TypeProductId" />
             <div class="form-group">
@@ -23,17 +23,16 @@
                     <option value="True">Activo</option>
                     <option value="False">Inactivo</option>
                 </select>
-            </div>
+            </div> <br />
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-outline-success" />
+                <a asp-action="Index" class="btn btn-outline-warning">Regresar</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Regresar</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

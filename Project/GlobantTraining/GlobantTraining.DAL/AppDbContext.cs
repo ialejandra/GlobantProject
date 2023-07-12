@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using GlobantTraining.DAL.Entities;
+using System.Diagnostics;
 
 namespace GlobantTraining.DAL
 {
@@ -19,14 +20,20 @@ namespace GlobantTraining.DAL
         public DbSet<Consumable> Consumables { get; set; }
 
         public DbSet<Product> Products { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
-                .HasColumnType("decimal(18,2)");
+                .HasColumnType("decimal(18.4)");
+
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.TypeProduct)
+                .WithMany()
+                .HasForeignKey(p => p.TypeProductId);
         }
 
+        public DbSet<ProductDetail> ProductsDetails { get; set; }
         public DbSet<Provider> Providers { get; set; }
 
         public DbSet<TypeUser> TypeUsers { get; set; }

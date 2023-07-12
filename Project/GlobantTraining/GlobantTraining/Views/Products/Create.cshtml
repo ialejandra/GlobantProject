@@ -1,4 +1,4 @@
-﻿@model GlobantTraining.DAL.Entities.Product
+﻿@model GlobantTraining.Models.Dtos.ProductDto
 
 @{
     ViewData["Title"] = "Crear Producto";
@@ -7,54 +7,149 @@
 <h1>@ViewBag.Titulo</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<form asp-action="Create" autocomplete="off">
+    <div class="row">
+
+        <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TypeProductId" class="control-label"></label>
-                <select asp-for="TypeProductId" class ="form-control" asp-items="ViewBag.TypeProductId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConsumableId" class="control-label"></label>
-                <select asp-for="ConsumableId" class ="form-control" asp-items="ViewBag.ConsumableId"></select>
-            </div>
+                <select asp-for="TypeProductId" class="form-control" asp-items="@ViewBag.TypeProducts">
+                    <option>--- Seleccione --- </option>
+                </select>
+            </div> <br />
+
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Characteristic" class="control-label"></label>
-                <input asp-for="Characteristic" class="form-control" />
-                <span asp-validation-for="Characteristic" class="text-danger"></span>
-            </div>
+            </div> <br />
+
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-outline-success" />
-            </div>
-        </form>
-    </div>
-</div>
+            </div>  <br />
+        </div>
 
-<div>
-    <a asp-action="Index">Regresar</a>
-</div>
+
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div> <br />
+            <div class="form-group">
+                <label asp-for="Characteristic" class="control-label"></label>
+                <input asp-for="Characteristic" class="form-control" />
+                <span asp-validation-for="Characteristic" class="text-danger"></span>
+            </div> <br />
+
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <div>
+                    <a id="myModalTitle">INSUMOS</a>
+                    <div class="form-group">
+                        <label asp-for="ProductDetail" for="buscar">Buscar</label>
+                        <input type="text" class="form-control" id="buscar" />
+                    </div>
+                    <ul id="lista-elementos" class="list-group">
+                    </ul>
+                </div>
+            </div> <br />
+
+
+            <div class="form-group">
+                <ul id="selected-elementos" class="list-group">
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Guardar" class="btn btn-outline-success" />
+        <a asp-action="Index" class="btn btn-outline-success">Regresar</a>
+    </div>
+
+</form>
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            var searchForm = document.getElementById("buscar");
+            var selectedElements = [];
+            searchForm.addEventListener("input", function (event) {
+                var searchQuery = searchForm.value;
+                const listHtml = document.getElementById("lista-elementos");
+
+                while (listHtml.firstChild) {
+                    listHtml.removeChild(listHtml.firstChild);
+                }
+
+                if (searchQuery === "") {
+                    listHtml.innerHTML = "";
+                    return;
+                }
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "/Products/SearchConsumables?searchForm=" + encodeURIComponent(searchQuery), true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+
+                        response.forEach(item => {
+                            const element = document.createElement("li");
+                            element.textContent = item.title + " " + item.color + " " + item.description;
+                            element.addEventListener("click", function (event) {
+                                searchForm.value = element.textContent;
+                            });
+
+                            listHtml.appendChild(element);
+                        });
+                    }
+                    else {
+                        console.log("Request error. Status:", xhr.status);
+                    }
+                };
+                xhr.onerror = function () {
+                    console.log("Request error.");
+                };
+                xhr.send();
+            });
+
+            $("#lista-elementos").on("click", "li", function () {
+                var selectedElement = $(this).text().trim();
+
+                if (!selectedElements.includes(selectedElement)) {
+                    selectedElements.push(selectedElement);
+
+                    var selectedList = document.getElementById("selected-elementos");
+                    var element = document.createElement("li");
+                    element.textContent = selectedElement;
+                    selectedList.appendChild(element);
+
+                    searchForm.value = "";
+                    // pasar al objeto Dto la lista
+                    // validar el objeto y la lista
+                }
+                
+            });
+
+        });
+
+    </script>
 }

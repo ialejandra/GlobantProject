@@ -10,37 +10,22 @@ using System.Xml.Linq;
     {
         public class TypeProductDto
         {
-            [Display(Name = "CÓDIGO")]
-            public int TypeProductId { get; set; }
+        [Display(Name = "CÓDIGO")]
+        public int TypeProductId { get; set; }
+
+
+        
+        [Required(ErrorMessage = "El nombre del tipo de producto es requerido")]
+        [Display(Name = "NOMBRE TIPO DE PRODUCTO")]
+        public string Title { get; set; }
 
 
 
+        [Display(Name = "ESTADO")]
+        public bool Status { get; set; }
+       
 
 
-            [Display(Name = "NOMBRE TIPO DE PRODUCTO")]
-            [Required(ErrorMessage = "El nombre del tipo de producto es requerido")]
-            public string Title { get; set; }
-
-
-
-            [Display(Name = "ESTADO")]
-            public bool Status { get; set; }
-
-        //public string ShowStatus
-        //{
-        //    get
-        //    {
-        //        if (Status)
-        //        { return "Activo"; }
-        //        else
-        //        { return "Inactivo"; }
-        //    }
-        //    set
-        //    {
-                
-        //    }
-            
-        //}
 
     }
 }

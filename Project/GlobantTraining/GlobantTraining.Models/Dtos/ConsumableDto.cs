@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GlobantTraining.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -52,6 +53,9 @@ namespace GlobantTraining.Models.Dtos
                 { return "Inactivo"; }
             }
         }
+
+
+        public ICollection<ProductDetail> ProductDetail { get; set; }
     }
 
 }

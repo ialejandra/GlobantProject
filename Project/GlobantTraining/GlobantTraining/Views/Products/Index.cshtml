@@ -5,10 +5,10 @@
     ViewData["Title"] = "Producto";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Titulo</h1>
 
 <p>
-    <a asp-action="Create">Crear</a>
+    <a asp-action="Create" >Crear</a>
 </p>
 <table class="table">
     <thead>
@@ -42,21 +42,29 @@
         {
         <tr>
             <td>
-                    @product.TypeProductId)
+                    @product.TypeProductId
             </td>
             
             <td>
-                    @product.Title)
+                    @product.Title
             </td>
             
-            <td>
-                    @product.Characteristic)
+            <td class="characteristic-cell" title="@product.Characteristic">
+                    @product.Characteristic
             </td>
             <td>
-                    @product.Price)
+                    @product.Price
             </td>
             <td>
-                    @product.Status)
+                    @if (product.Status)
+                    {
+                        <p>Activo</p>
+
+                    }
+                    else
+                    {
+                        <p>Inactivo</p>
+                    }
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@product.ProductId">Editar</a> |
