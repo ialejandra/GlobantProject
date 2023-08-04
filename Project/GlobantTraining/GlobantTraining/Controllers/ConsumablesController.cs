@@ -1,8 +1,8 @@
-﻿using GlobantTraining.Models.Abstract;
-using GlobantTraining.DAL.Entities;
+﻿using GlobantTraining.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GlobantTraining.Models.Dtos;
+using GlobantTraining.Business.Abstract;
 
 namespace GlobantTraining.Controllers
 {
@@ -121,6 +121,8 @@ namespace GlobantTraining.Controllers
             }
             return View(consumableDto);
         }
+
+       
     }
 
 }

@@ -1,4 +1,4 @@
-﻿@model GlobantTraining.DAL.Entities.Product
+﻿@model GlobantTraining.Models.Dtos.ProductDto
 
 @{
     ViewData["Title"] = "Editar Producto";
@@ -6,57 +6,171 @@
 
 <h1>@ViewBag.Titulo</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<form asp-action="Edit" autocomplete="Off">
+    <div class="row">
+
+        <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductId" />
             <div class="form-group">
                 <label asp-for="TypeProductId" class="control-label"></label>
-                <select asp-for="TypeProductId" class="form-control" asp-items="ViewBag.TypeProductId"></select>
-                <span asp-validation-for="TypeProductId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConsumableId" class="control-label"></label>
-                <select asp-for="ConsumableId" class="form-control" asp-items="ViewBag.ConsumableId"></select>
-                <span asp-validation-for="ConsumableId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Characteristic" class="control-label"></label>
-                <input asp-for="Characteristic" class="form-control" />
-                <span asp-validation-for="Characteristic" class="text-danger"></span>
-            </div>
+                <select asp-for="TypeProductId" class="form-control" asp-items="@ViewBag.TypeProducts"></select>
+            </div> <br />
+            
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-outline-success" />
-            </div>
-        </form>
-    </div>
-</div>
+            </div> <br />
 
-<div>
-    <a asp-action="Index">Regresar</a>
-</div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    <option disabled>--- Seleccione --- </option>
+                    <option value="True">Activo</option>
+                    <option value="False">Inactivo</option>
+                </select>
+            </div> <br />
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div> <br />
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div> <br />
+
+            @*<div class="form-group">
+            <label asp-for="ConsumableId" class="control-label"></label>
+
+            <div class="input-group">
+            <select asp-for="ConsumableId" class="form-control" asp-items="@(new SelectList(ViewBag.consumable, "Value", "Text"))"></select>
+            <div class="input-group-append">
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">
+            <i class="fa fa-plus"></i>
+            </button>
+            </div>
+            </div>
+            </div><br />*@
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true" autocomplete="Off">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalTitle">Agregar Insumo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="buscar">Buscar</label>
+                                <input type="text" class="form-control" id="buscar" />
+                            </div>
+                            <ul id="lista-elementos" class="list-group">
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div> <br />
+            <div class="form-group">
+                <label asp-for="Characteristic" class="control-label"></label>
+                <input asp-for="Characteristic" class="form-control" />
+                <span asp-validation-for="Characteristic" class="text-danger"></span>
+            </div> <br />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Guardar" class="btn btn-outline-success" />
+        <a asp-action="Index" class="btn btn-outline-warning">Regresar</a>
+    </div>
+
+</form>
+
+
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+
+            var searchForm = document.getElementById("buscar");
+            searchForm.addEventListener("input", function (event) {
+
+                var searchQuery = searchForm.value;
+                const ListHtml = document.getElementById("lista-elementos");
+
+                while (ListHtml.firstChild) {
+                    ListHtml.removeChild(ListHtml.firstChild);
+                }
+                if (searchQuery === "") {
+
+                    ListHtml.innerHTML = ""
+                }
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "/Products/SearchConsumables?searchForm=" + encodeURIComponent(searchQuery), true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+
+                        var response = JSON.parse(xhr.responseText);
+                        var oldItem = [];
+                        response.forEach(item => {
+                            if (oldItem.includes(item)) {
+                                return;
+                            }
+                            const Element = document.createElement("li");
+                            Element.textContent = item.title + " " + item.color + " " + item.description;
+                            Element.addEventListener("click", function (event) {
+                                searchForm.value = Element.textContent;
+                            })
+
+                            ListHtml.appendChild(Element);
+                            oldItem.push(Element);
+                        })
+
+                    } else {
+
+                        console.log("Request error.Status:", xhr.status);
+                    }
+                };
+                xhr.onerror = function () {
+
+                    console.log("Request error.");
+                };
+                xhr.send();
+            });
+
+
+        });
+    </script>
+
+
+
+
+
+
+
+
 }

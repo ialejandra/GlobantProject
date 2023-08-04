@@ -16,3 +16,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.characteristic-cell {
+    max-width: 30ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}

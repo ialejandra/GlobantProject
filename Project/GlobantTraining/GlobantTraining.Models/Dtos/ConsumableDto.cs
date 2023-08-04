@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GlobantTraining.DAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GlobantTraining.Models.Dtos
 {
     public class ConsumableDto
     {
-
         [Key]
         [Display(Name = "CÓDIGO")]
         public int ConsumableId { get; set; }
@@ -37,11 +43,20 @@ namespace GlobantTraining.Models.Dtos
         [Display(Name = "ESTADO")]
         public bool Status { get; set; }
 
-        public string ShowStatus { get 
-            { 
-                if (Status) 
-                    { return "Activo"; } 
-                else 
-                    { return "Inactivo"; } } }
+        public string ShowStatus
+        {
+            get
+            {
+                if (Status)
+                { return "Activo"; }
+                else
+                { return "Inactivo"; }
+            }
+        }
+
+
+        public ICollection<ProductDetail> ProductDetail { get; set; }
     }
+
 }
+

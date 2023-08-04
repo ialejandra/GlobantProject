@@ -1,7 +1,7 @@
 ﻿using GlobantTraining.DAL.Entities;
 using GlobantTraining.Models.Dtos;
 
-namespace GlobantTraining.Models.Abstract
+namespace GlobantTraining.Business.Abstract
 {
     public interface IConsumableBusiness
     {
@@ -14,7 +14,7 @@ namespace GlobantTraining.Models.Abstract
 
         void Edit(ConsumableDto consumableDto);
         bool ConsumableExists(int id);
-       
+
 
         //Task Delete(int consumableId);
     }

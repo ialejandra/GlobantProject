@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Numerics;
+﻿
+
+using System.Diagnostics;
 
 namespace GlobantTraining.DAL.Entities
 {
     public class Product
     {
-        [Key]
         public int ProductId { get; set; }
         public int TypeProductId { get; set; }
-        public virtual TypeProduct TypeProduct { get; set; }
-        public int ConsumableId { get; set; }
-        public virtual Consumable Consumable { get; set; }
+        public virtual TypeProduct TypeProduct { get; set; } 
         public string Title { get; set; }
         public string Color { get; set; }
         public string Characteristic { get; set; }
